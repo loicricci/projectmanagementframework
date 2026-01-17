@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 30 58 95;
+    --color-secondary: 74 85 104;
+    --color-accent: 43 108 176;
+    --color-success: 47 133 90;
+    --color-warning: 192 86 33;
+    --color-muted: 113 128 150;
+    --color-surface: 247 250 252;
+    --color-border: 226 232 240;
+  }
+
+  * {
+    border-color: rgb(var(--color-border));
+  }
+
+  body {
+    @apply bg-white text-secondary-600 font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1 {
+    @apply text-2xl font-bold text-primary-800;
+  }
+
+  h2 {
+    @apply text-xl font-bold text-primary-800;
+  }
+
+  h3 {
+    @apply text-lg font-semibold text-primary-800;
+  }
+
+  p {
+    @apply text-base text-secondary-600 leading-relaxed;
+  }
+}
+
+@layer components {
+  .section-card {
+    @apply bg-white border border-secondary-200 p-6;
+  }
+
+  .content-section {
+    @apply space-y-4;
+  }
+
+  .nav-link {
+    @apply flex items-center gap-3 px-4 py-2.5 text-secondary-600 hover:bg-surface border-l-4 border-transparent;
+  }
+
+  .nav-link.active {
+    @apply bg-surface border-l-primary text-primary font-medium;
+  }
+
+  .breadcrumb {
+    @apply text-sm text-secondary-500 flex items-center gap-2;
+  }
+
+  .breadcrumb a {
+    @apply hover:text-accent;
+  }
+
+  .table-institutional {
+    @apply w-full border-collapse;
+  }
+
+  .table-institutional th {
+    @apply bg-surface text-left px-4 py-3 text-sm font-semibold text-primary border-b border-secondary-200;
+  }
+
+  .table-institutional td {
+    @apply px-4 py-3 text-sm border-b border-secondary-200;
+  }
+
+  .table-institutional tr:nth-child(even) {
+    @apply bg-secondary-50;
+  }
+
+  .phase-indicator {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold;
+  }
+
+  .phase-indicator.completed {
+    @apply bg-success text-white;
+  }
+
+  .phase-indicator.current {
+    @apply bg-primary text-white;
+  }
+
+  .phase-indicator.pending {
+    @apply bg-secondary-200 text-secondary-600;
+  }
+
+  /* Custom text sizes */
+  .text-h1 {
+    @apply text-2xl font-bold leading-tight;
+  }
+
+  .text-h2 {
+    @apply text-xl font-bold leading-snug;
+  }
+
+  .text-h3 {
+    @apply text-lg font-semibold;
+  }
+
+  .text-body {
+    @apply text-base leading-relaxed;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
