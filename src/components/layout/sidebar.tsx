@@ -108,16 +108,17 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
             </a>
             <a
-              href="https://drive.google.com"
+              href="https://drive.proton.me"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-4 py-3 text-sm border-l-4 border-transparent text-secondary hover:bg-surface hover:text-primary"
             >
               <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M4.433 22l3.273-5.67H22l-3.273 5.67H4.433zm3.128-6.236L2 6.328l3.273-.006 5.561 9.442-3.273.006zm6.036-9.436L17.06 0h-6.546l-3.463 6.328h6.546z"/>
-                <path d="M8.614 6.328L14.134 16h6.594L15.208 6.328H8.614z" opacity="0.5"/>
+                <path d="M3 6.5C3 5.67 3.67 5 4.5 5h15c.83 0 1.5.67 1.5 1.5v11c0 .83-.67 1.5-1.5 1.5h-15c-.83 0-1.5-.67-1.5-1.5v-11z"/>
+                <path d="M8 10l4 3 4-3" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M8 14h8" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
-              <span>Google Drive</span>
+              <span>Proton Drive</span>
               <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
             </a>
             <a

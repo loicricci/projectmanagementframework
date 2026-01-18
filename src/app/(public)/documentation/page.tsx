@@ -76,7 +76,7 @@ export default function DocumentationPage() {
           <div className="space-y-4">
             <p className="text-secondary">
               <strong className="text-primary">DocuWare</strong> is the single source of truth for all official documentation. 
-              Working documents may temporarily reside in Google Drive, but all approved, final versions must be stored in DocuWare.
+              Working documents may temporarily reside in Proton Drive, but all approved, final versions must be stored in DocuWare.
             </p>
             
             <div className="grid sm:grid-cols-2 gap-4">
@@ -90,7 +90,7 @@ export default function DocumentationPage() {
                 </ul>
               </div>
               <div className="p-4 border border-border">
-                <h4 className="font-semibold text-primary mb-2">Google Drive (Working)</h4>
+                <h4 className="font-semibold text-primary mb-2">Proton Drive (Working)</h4>
                 <ul className="text-sm text-secondary space-y-1">
                   <li>• Work in progress</li>
                   <li>• Team collaboration</li>
