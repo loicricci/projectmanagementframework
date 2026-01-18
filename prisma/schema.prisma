@@ -40,16 +40,17 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  role          Role      @default(USER)
-  accounts      Account[]
-  sessions      Session[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id              String            @id @default(cuid())
+  name            String?
+  email           String?           @unique
+  emailVerified   DateTime?
+  image           String?
+  role            Role              @default(USER)
+  accounts        Account[]
+  sessions        Session[]
+  settingsUpdates ProjectSettings[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 }
 
 model VerificationToken {
@@ -81,19 +82,20 @@ model Page {
 
 // Project Lifecycle Phases
 model Phase {
-  id             String    @id @default(cuid())
-  order          Int
-  name           String
-  shortName      String
-  narrative      String    @db.Text
-  entryCriteria  Json      @default("[]")
-  exitGate       Json      @default("[]")
-  toolLinks      Json      @default("[]")
-  docuwareLinks  Json      @default("[]")
-  ceremonyId     String?
-  ceremony       Ceremony? @relation(fields: [ceremonyId], references: [id])
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id              String            @id @default(cuid())
+  order           Int
+  name            String
+  shortName       String
+  narrative       String            @db.Text
+  entryCriteria   Json              @default("[]")
+  exitGate        Json              @default("[]")
+  toolLinks       Json              @default("[]")
+  docuwareLinks   Json              @default("[]")
+  ceremonyId      String?
+  ceremony        Ceremony?         @relation(fields: [ceremonyId], references: [id])
+  projectSettings ProjectSettings[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 }
 
 // Governance Ceremonies
@@ -137,4 +139,27 @@ model AllowedDomain {
 enum AccessLevel {
   USER
   ADMIN
+}
+
+// Project Settings (singleton pattern - only one row)
+model ProjectSettings {
+  id              String   @id @default("default")
+  currentPhaseId  String?
+  currentPhase    Phase?   @relation(fields: [currentPhaseId], references: [id])
+  updatedAt       DateTime @updatedAt
+  updatedById     String?
+  updatedBy       User?    @relation(fields: [updatedById], references: [id])
+}
+
+// Role Assignments - Maps organizational roles to actual people
+model RoleAssignment {
+  id            String   @id @default(cuid())
+  roleKey       String   @unique // e.g., "business-director", "project-director"
+  roleName      String   // Display name: "Business Director"
+  assigneeName  String?  // Name of the person: "Mickael Urbani"
+  assigneeEmail String?  // Optional email
+  assigneePhone String?  // Optional phone
+  notes         String?  @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

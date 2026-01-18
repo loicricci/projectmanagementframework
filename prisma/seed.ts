@@ -152,8 +152,8 @@ async function main() {
           "Pre-Design Gate approval obtained",
         ],
         toolLinks: [
-          { name: "ClickUp", url: "https://clickup.com", description: "Create initial project space" },
-          { name: "MS Project", url: "#", description: "High-level timeline" },
+          { name: "Trello", url: "https://trello.com", description: "Create initial project board" },
+          { name: "TeamGantt", url: "https://app.teamgantt.com/", description: "High-level timeline & Gantt chart" },
         ],
         docuwareLinks: [
           { name: "Business Case Template", ref: "TPL-001" },
@@ -185,7 +185,7 @@ async function main() {
           "Design Validation Gate approval",
         ],
         toolLinks: [
-          { name: "ClickUp", url: "https://clickup.com", description: "Design task management" },
+          { name: "Trello", url: "https://trello.com", description: "Design task management" },
           { name: "AutoCAD", url: "#", description: "Technical drawings" },
         ],
         docuwareLinks: [
@@ -197,33 +197,57 @@ async function main() {
     }),
     prisma.phase.upsert({
       where: { id: "phase-2" },
-      update: {},
-      create: {
-        id: "phase-2",
-        order: 2,
-        name: "Master Review",
-        shortName: "Phase 2",
+      update: {
+        name: "Industrialisation",
         narrative:
-          "The Master Review phase is the critical checkpoint before major commitments. All designs are frozen, contracts are finalized, and the complete project plan is validated. This is the last opportunity to adjust before build begins.",
+          "The Industrialisation phase transforms validated designs into production-ready specifications. Manufacturing processes are defined, supply chain requirements are finalized, and production planning is completed. This phase bridges design completion and build execution.",
         entryCriteria: [
           "Design Validation Gate approval",
           "All designs at final revision",
-          "Contract negotiations completed",
-          "Full project plan documented",
+          "Manufacturing feasibility confirmed",
+          "Production requirements documented",
         ],
         exitGate: [
-          "Master project plan approved",
-          "Contracts signed",
-          "Budget fully committed",
+          "Manufacturing processes defined",
+          "Production specifications finalized",
+          "Supply chain requirements confirmed",
           "Master Review approval",
         ],
         toolLinks: [
-          { name: "MS Project", url: "#", description: "Master schedule" },
-          { name: "DocuSign", url: "#", description: "Contract execution" },
+          { name: "TeamGantt", url: "https://app.teamgantt.com/", description: "Production planning & scheduling" },
+          { name: "Trello", url: "https://trello.com", description: "Industrialisation tracking" },
         ],
         docuwareLinks: [
-          { name: "Master Review Checklist", ref: "TPL-005" },
-          { name: "Contract Package", ref: "DOC-001" },
+          { name: "Manufacturing Specification Template", ref: "TPL-005" },
+          { name: "Production Planning Guide", ref: "TPL-005b" },
+        ],
+      },
+      create: {
+        id: "phase-2",
+        order: 2,
+        name: "Industrialisation",
+        shortName: "Phase 2",
+        narrative:
+          "The Industrialisation phase transforms validated designs into production-ready specifications. Manufacturing processes are defined, supply chain requirements are finalized, and production planning is completed. This phase bridges design completion and build execution.",
+        entryCriteria: [
+          "Design Validation Gate approval",
+          "All designs at final revision",
+          "Manufacturing feasibility confirmed",
+          "Production requirements documented",
+        ],
+        exitGate: [
+          "Manufacturing processes defined",
+          "Production specifications finalized",
+          "Supply chain requirements confirmed",
+          "Master Review approval",
+        ],
+        toolLinks: [
+          { name: "TeamGantt", url: "https://app.teamgantt.com/", description: "Production planning & scheduling" },
+          { name: "Trello", url: "https://trello.com", description: "Industrialisation tracking" },
+        ],
+        docuwareLinks: [
+          { name: "Manufacturing Specification Template", ref: "TPL-005" },
+          { name: "Production Planning Guide", ref: "TPL-005b" },
         ],
         ceremonyId: "ceremony-3",
       },
@@ -251,7 +275,7 @@ async function main() {
           "Ready for site installation",
         ],
         toolLinks: [
-          { name: "ClickUp", url: "https://clickup.com", description: "Build tracking" },
+          { name: "Trello", url: "https://trello.com", description: "Build tracking" },
           { name: "Xero", url: "https://xero.com", description: "Invoice processing" },
         ],
         docuwareLinks: [
@@ -267,26 +291,30 @@ async function main() {
       create: {
         id: "phase-4",
         order: 4,
-        name: "Handover Review",
+        name: "Testing",
         shortName: "Phase 4",
         narrative:
-          "The Handover Review phase prepares for site transition. All deliverables are validated, documentation is compiled, and operational teams are briefed. This ensures a smooth transition from project delivery to site operations.",
+          "The Testing phase validates that all deliverables meet specifications and quality standards. Factory acceptance testing (FAT), integration testing, and quality assurance activities ensure everything is ready for site deployment. This phase concludes with the Handover Review gate before transitioning to Site Run.",
         entryCriteria: [
           "Build phase completion",
-          "All deliverables shipped",
-          "Documentation compiled",
-          "Operations team briefed",
+          "All deliverables manufactured/assembled",
+          "Test plans approved",
+          "Quality team mobilized",
         ],
         exitGate: [
-          "Handover checklist completed",
-          "Site team sign-off obtained",
-          "Training completed",
+          "Factory acceptance tests passed",
+          "Integration testing completed",
+          "Quality documentation finalized",
           "Handover Review approval",
         ],
-        toolLinks: [{ name: "ClickUp", url: "https://clickup.com", description: "Handover tracking" }],
+        toolLinks: [
+          { name: "Trello", url: "https://trello.com", description: "Test tracking and defect management" },
+          { name: "TestRail", url: "#", description: "Test case management" },
+        ],
         docuwareLinks: [
-          { name: "Handover Checklist", ref: "TPL-008" },
-          { name: "Training Records", ref: "TPL-009" },
+          { name: "Test Plan Template", ref: "TPL-008" },
+          { name: "FAT Protocol", ref: "TPL-009" },
+          { name: "Quality Inspection Report", ref: "TPL-010" },
         ],
         ceremonyId: "ceremony-4",
       },
@@ -300,8 +328,9 @@ async function main() {
         name: "Site Run",
         shortName: "Phase 5",
         narrative:
-          "The Site Run phase covers installation, commissioning, and operational stabilization. The project team supports site activities until the system is fully operational and handed over to the operational organization.",
+          "The Site Run phase covers installation, commissioning, and operational stabilization. Following successful testing and Handover Review approval, the project team supports site activities until the system is fully operational and handed over to the operational organization.",
         entryCriteria: [
+          "Testing phase completion",
           "Handover Review approval",
           "Site ready for installation",
           "Installation team mobilized",
@@ -313,10 +342,10 @@ async function main() {
           "Operational acceptance signed",
           "Project closure documentation",
         ],
-        toolLinks: [{ name: "ClickUp", url: "https://clickup.com", description: "Site activities" }],
+        toolLinks: [{ name: "Trello", url: "https://trello.com", description: "Site activities" }],
         docuwareLinks: [
-          { name: "Commissioning Checklist", ref: "TPL-010" },
-          { name: "Project Closure Report", ref: "TPL-011" },
+          { name: "Commissioning Checklist", ref: "TPL-011" },
+          { name: "Project Closure Report", ref: "TPL-012" },
         ],
         ceremonyId: "ceremony-5",
       },
@@ -328,31 +357,31 @@ async function main() {
   // Seed Tools
   const tools = await Promise.all([
     prisma.tool.upsert({
-      where: { id: "tool-clickup" },
+      where: { id: "tool-trello" },
       update: {},
       create: {
-        id: "tool-clickup",
+        id: "tool-trello",
         domain: "Project Management",
-        name: "ClickUp",
-        description: "Primary project and task management platform for day-to-day project activities.",
+        name: "Trello",
+        description: "Visual task management platform for daily task follow-up and team alignment.",
         whenToUse:
-          "Use for all task management, team collaboration, sprint planning, and project tracking. Create spaces for each project.",
-        externalUrl: "https://clickup.com",
+          "Use for daily task tracking, team collaboration, sprint boards, and project visibility. Create boards for each project phase.",
+        externalUrl: "https://trello.com",
         icon: "layout-grid",
         order: 1,
       },
     }),
     prisma.tool.upsert({
-      where: { id: "tool-msproject" },
+      where: { id: "tool-teamgantt" },
       update: {},
       create: {
-        id: "tool-msproject",
+        id: "tool-teamgantt",
         domain: "Project Management",
-        name: "Microsoft Project",
-        description: "Enterprise project planning tool for complex scheduling and resource management.",
+        name: "TeamGantt",
+        description: "Collaborative Gantt chart software for project scheduling and timeline management.",
         whenToUse:
-          "Use for master project schedules, Gantt charts, resource leveling, and executive reporting. Sync milestones to ClickUp.",
-        externalUrl: "#",
+          "Use for master project schedules, Gantt charts, resource planning, and visual project timelines. Ideal for sharing schedules with stakeholders.",
+        externalUrl: "https://app.teamgantt.com/",
         icon: "gantt-chart",
         order: 2,
       },

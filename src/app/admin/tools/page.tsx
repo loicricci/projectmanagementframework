@@ -24,8 +24,8 @@ const domains = [
 ];
 
 const initialTools = [
-  { id: "1", name: "ClickUp", domain: "Project Management", url: "https://clickup.com" },
-  { id: "2", name: "MS Project", domain: "Project Management", url: "#" },
+  { id: "1", name: "Trello", domain: "Project Management", url: "https://trello.com" },
+  { id: "2", name: "TeamGantt", domain: "Project Management", url: "https://app.teamgantt.com/" },
   { id: "3", name: "Xero", domain: "Finance", url: "https://xero.com" },
   { id: "4", name: "DocuWare", domain: "Documentation", url: "#" },
   { id: "5", name: "Power BI", domain: "Reporting", url: "#" },

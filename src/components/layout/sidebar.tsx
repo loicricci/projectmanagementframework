@@ -11,6 +11,7 @@ import {
   Wrench,
   FolderOpen,
   BarChart3,
+  ExternalLink,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -74,6 +75,103 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               );
             })}
           </ul>
+
+          {/* External Links */}
+          <div className="mt-6 pt-4 border-t border-border">
+            <p className="px-4 text-xs font-medium text-muted uppercase tracking-wider mb-2">
+              External
+            </p>
+            <a
+              href="https://trello.com/b/cKVIgi6v"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-4 py-3 text-sm border-l-4 border-transparent text-secondary hover:bg-surface hover:text-primary"
+            >
+              <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 0H3C1.343 0 0 1.343 0 3v18c0 1.656 1.343 3 3 3h18c1.656 0 3-1.344 3-3V3c0-1.657-1.344-3-3-3zM10.44 18.18c0 .795-.645 1.44-1.44 1.44H4.56c-.795 0-1.44-.645-1.44-1.44V4.56c0-.795.645-1.44 1.44-1.44H9c.795 0 1.44.645 1.44 1.44v13.62zm10.44-6c0 .794-.645 1.44-1.44 1.44h-4.44c-.795 0-1.44-.646-1.44-1.44V4.56c0-.795.645-1.44 1.44-1.44h4.44c.795 0 1.44.645 1.44 1.44v7.62z"/>
+              </svg>
+              <span>Trello Board</span>
+              <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
+            </a>
+            <a
+              href="https://app.teamgantt.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-4 py-3 text-sm border-l-4 border-transparent text-secondary hover:bg-surface hover:text-primary"
+            >
+              <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="2" y="3" width="8" height="4" rx="1" />
+                <rect x="2" y="10" width="14" height="4" rx="1" />
+                <rect x="2" y="17" width="10" height="4" rx="1" />
+              </svg>
+              <span>TeamGantt</span>
+              <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
+            </a>
+            <a
+              href="https://drive.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-4 py-3 text-sm border-l-4 border-transparent text-secondary hover:bg-surface hover:text-primary"
+            >
+              <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4.433 22l3.273-5.67H22l-3.273 5.67H4.433zm3.128-6.236L2 6.328l3.273-.006 5.561 9.442-3.273.006zm6.036-9.436L17.06 0h-6.546l-3.463 6.328h6.546z"/>
+                <path d="M8.614 6.328L14.134 16h6.594L15.208 6.328H8.614z" opacity="0.5"/>
+              </svg>
+              <span>Google Drive</span>
+              <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
+            </a>
+            <a
+              href="https://docuware.cloud"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-4 py-3 text-sm border-l-4 border-transparent text-secondary hover:bg-surface hover:text-primary"
+            >
+              <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" fill="none" stroke="white" strokeWidth="1.5"/>
+              </svg>
+              <span>Docuware</span>
+              <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
+            </a>
+            <a
+              href="https://go.xero.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-4 py-3 text-sm border-l-4 border-transparent text-secondary hover:bg-surface hover:text-primary"
+            >
+              <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 14.59L8 14l1.41-1.41L12 15.17l4.59-4.58L18 12l-6 6-1.41-1.41z"/>
+              </svg>
+              <span>Xero</span>
+              <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
+            </a>
+            <a
+              href="https://monitoring.example.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-4 py-3 text-sm border-l-4 border-transparent text-secondary hover:bg-surface hover:text-primary"
+            >
+              <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+              <span>Monitoring Platform</span>
+              <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
+            </a>
+            <a
+              href="/templates/budget-template.xlsx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-4 py-3 text-sm border-l-4 border-transparent text-secondary hover:bg-surface hover:text-primary"
+            >
+              <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" fill="#217346"/>
+                <path d="M14 2v6h6" fill="#33a867"/>
+                <text x="7" y="17" fontSize="7" fill="white" fontWeight="bold">XLS</text>
+              </svg>
+              <span>XLS Budget Template</span>
+              <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
+            </a>
+          </div>
         </nav>
 
         {/* Footer */}

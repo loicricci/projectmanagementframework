@@ -1,6 +1,11 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Breadcrumb, PageHeader } from "@/components/layout";
 import { PhaseTimeline } from "@/components/content/phase-timeline";
 import { PhaseDetails } from "@/components/content/phase-details";
+import { Badge } from "@/components/ui/badge";
+import { Target } from "lucide-react";
 
 // This data would normally come from the database
 const phases = [
@@ -25,8 +30,8 @@ const phases = [
     ],
     ceremony: "Pre-Design Gate",
     toolLinks: [
-      { name: "ClickUp", url: "#", description: "Create initial project space" },
-      { name: "MS Project", url: "#", description: "High-level timeline" },
+      { name: "Trello", url: "https://trello.com", description: "Create initial project board" },
+      { name: "TeamGantt", url: "https://app.teamgantt.com/", description: "High-level timeline & Gantt chart" },
     ],
     docuwareLinks: [
       { name: "Business Case Template", ref: "TPL-001" },
@@ -53,7 +58,7 @@ const phases = [
     ],
     ceremony: "Design Validation Gate",
     toolLinks: [
-      { name: "ClickUp", url: "#", description: "Design task management" },
+      { name: "Trello", url: "https://trello.com", description: "Design task management" },
       { name: "AutoCAD", url: "#", description: "Technical drawings" },
     ],
     docuwareLinks: [
@@ -64,29 +69,29 @@ const phases = [
   {
     id: "phase-2",
     order: 2,
-    name: "Master Review",
+    name: "Industrialisation",
     shortName: "Phase 2",
-    narrative: "The Master Review phase is the critical checkpoint before major commitments. All designs are frozen, contracts are finalized, and the complete project plan is validated. This is the last opportunity to adjust before build begins.",
+    narrative: "The Industrialisation phase transforms validated designs into production-ready specifications. Manufacturing processes are defined, supply chain requirements are finalized, and production planning is completed. This phase bridges design completion and build execution.",
     entryCriteria: [
       "Design Validation Gate approval",
       "All designs at final revision",
-      "Contract negotiations completed",
-      "Full project plan documented",
+      "Manufacturing feasibility confirmed",
+      "Production requirements documented",
     ],
     exitGate: [
-      "Master project plan approved",
-      "Contracts signed",
-      "Budget fully committed",
+      "Manufacturing processes defined",
+      "Production specifications finalized",
+      "Supply chain requirements confirmed",
       "Master Review approval",
     ],
     ceremony: "Master Review",
     toolLinks: [
-      { name: "MS Project", url: "#", description: "Master schedule" },
-      { name: "DocuSign", url: "#", description: "Contract execution" },
+      { name: "TeamGantt", url: "https://app.teamgantt.com/", description: "Production planning & scheduling" },
+      { name: "Trello", url: "https://trello.com", description: "Industrialisation tracking" },
     ],
     docuwareLinks: [
-      { name: "Master Review Checklist", ref: "TPL-005" },
-      { name: "Contract Package", ref: "DOC-001" },
+      { name: "Manufacturing Specification Template", ref: "TPL-005" },
+      { name: "Production Planning Guide", ref: "TPL-005b" },
     ],
   },
   {
@@ -109,7 +114,7 @@ const phases = [
     ],
     ceremony: "Operational Review",
     toolLinks: [
-      { name: "ClickUp", url: "#", description: "Build tracking" },
+      { name: "Trello", url: "https://trello.com", description: "Build tracking" },
       { name: "Xero", url: "#", description: "Invoice processing" },
     ],
     docuwareLinks: [
@@ -120,28 +125,30 @@ const phases = [
   {
     id: "phase-4",
     order: 4,
-    name: "Handover Review",
+    name: "Testing",
     shortName: "Phase 4",
-    narrative: "The Handover Review phase prepares for site transition. All deliverables are validated, documentation is compiled, and operational teams are briefed. This ensures a smooth transition from project delivery to site operations.",
+    narrative: "The Testing phase validates that all deliverables meet specifications and quality standards. Factory acceptance testing (FAT), integration testing, and quality assurance activities ensure everything is ready for site deployment. This phase concludes with the Handover Review gate before transitioning to Site Run.",
     entryCriteria: [
       "Build phase completion",
-      "All deliverables shipped",
-      "Documentation compiled",
-      "Operations team briefed",
+      "All deliverables manufactured/assembled",
+      "Test plans approved",
+      "Quality team mobilized",
     ],
     exitGate: [
-      "Handover checklist completed",
-      "Site team sign-off obtained",
-      "Training completed",
+      "Factory acceptance tests passed",
+      "Integration testing completed",
+      "Quality documentation finalized",
       "Handover Review approval",
     ],
     ceremony: "Handover Review",
     toolLinks: [
-      { name: "ClickUp", url: "#", description: "Handover tracking" },
+      { name: "Trello", url: "https://trello.com", description: "Test tracking and defect management" },
+      { name: "TestRail", url: "#", description: "Test case management" },
     ],
     docuwareLinks: [
-      { name: "Handover Checklist", ref: "TPL-008" },
-      { name: "Training Records", ref: "TPL-009" },
+      { name: "Test Plan Template", ref: "TPL-008" },
+      { name: "FAT Protocol", ref: "TPL-009" },
+      { name: "Quality Inspection Report", ref: "TPL-010" },
     ],
   },
   {
@@ -149,8 +156,9 @@ const phases = [
     order: 5,
     name: "Site Run",
     shortName: "Phase 5",
-    narrative: "The Site Run phase covers installation, commissioning, and operational stabilization. The project team supports site activities until the system is fully operational and handed over to the operational organization.",
+    narrative: "The Site Run phase covers installation, commissioning, and operational stabilization. Following successful testing and Handover Review approval, the project team supports site activities until the system is fully operational and handed over to the operational organization.",
     entryCriteria: [
+      "Testing phase completion",
       "Handover Review approval",
       "Site ready for installation",
       "Installation team mobilized",
@@ -162,9 +170,9 @@ const phases = [
       "Operational acceptance signed",
       "Project closure documentation",
     ],
-    ceremony: "Operational Review",
+    ceremony: "Quarterly Performance Site Review",
     toolLinks: [
-      { name: "ClickUp", url: "#", description: "Site activities" },
+      { name: "Trello", url: "https://trello.com", description: "Site activities" },
     ],
     docuwareLinks: [
       { name: "Commissioning Checklist", ref: "TPL-010" },
@@ -173,7 +181,42 @@ const phases = [
   },
 ];
 
+interface CurrentPhaseData {
+  currentPhaseId: string | null;
+  currentPhase: {
+    id: string;
+    order: number;
+    name: string;
+    shortName: string;
+  } | null;
+  updatedAt: string | null;
+}
+
 export default function LifecyclePage() {
+  const [currentPhaseData, setCurrentPhaseData] = useState<CurrentPhaseData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCurrentPhase();
+  }, []);
+
+  const fetchCurrentPhase = async () => {
+    try {
+      const response = await fetch("/api/settings/current-phase");
+      if (response.ok) {
+        const data = await response.json();
+        setCurrentPhaseData(data);
+      }
+    } catch (error) {
+      console.error("Error fetching current phase:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Get the current phase index for the timeline
+  const currentPhaseIndex = currentPhaseData?.currentPhase?.order ?? undefined;
+
   return (
     <div>
       <Breadcrumb items={[{ label: "Project Lifecycle" }]} />
@@ -183,8 +226,35 @@ export default function LifecyclePage() {
         description="The project lifecycle defines the journey from initial concept to operational delivery. Each phase has specific objectives, entry criteria, and exit gates that ensure quality and control throughout the project."
       />
 
+      {/* Current Phase Status Banner */}
+      {!isLoading && currentPhaseData?.currentPhase && (
+        <div className="mb-6 p-4 bg-primary/10 border border-primary/20 flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-2">
+            <Target className="h-5 w-5 text-primary" />
+            <span className="font-semibold text-primary">Current Phase:</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="default" className="text-sm">
+              {currentPhaseData.currentPhase.shortName}
+            </Badge>
+            <span className="text-lg font-semibold text-primary">
+              {currentPhaseData.currentPhase.name}
+            </span>
+          </div>
+          {currentPhaseData.updatedAt && (
+            <span className="text-sm text-muted ml-auto">
+              Updated: {new Date(currentPhaseData.updatedAt).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })}
+            </span>
+          )}
+        </div>
+      )}
+
       {/* Timeline Visualization */}
-      <PhaseTimeline phases={phases} />
+      <PhaseTimeline phases={phases} currentPhase={currentPhaseIndex} />
 
       {/* Phase Details */}
       <div className="mt-8">

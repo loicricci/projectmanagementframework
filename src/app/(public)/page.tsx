@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { PageHeader } from "@/components/layout";
+import { PhaseTimeline } from "@/components/content/phase-timeline";
+import { prisma } from "@/lib/prisma";
 import {
   FileText,
   GitBranch,
@@ -71,7 +73,30 @@ const features = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Fetch phases and current phase from database
+  const [phases, settings] = await Promise.all([
+    prisma.phase.findMany({
+      orderBy: { order: "asc" },
+      include: { ceremony: true },
+    }),
+    prisma.projectSettings.findUnique({
+      where: { id: "default" },
+      include: { currentPhase: true },
+    }),
+  ]);
+
+  // Transform phases for the timeline component
+  const timelinePhases = phases.map((phase) => ({
+    id: phase.id,
+    order: phase.order,
+    name: phase.name,
+    shortName: phase.shortName,
+    ceremony: phase.ceremony?.name,
+  }));
+
+  // Get current phase order number
+  const currentPhaseOrder = settings?.currentPhase?.order;
   return (
     <div>
       {/* Hero Section */}
@@ -97,6 +122,11 @@ export default function HomePage() {
             );
           })}
         </div>
+      </div>
+
+      {/* Lifecycle Overview */}
+      <div className="mb-8">
+        <PhaseTimeline phases={timelinePhases} currentPhase={currentPhaseOrder} />
       </div>
 
       {/* What This Dashboard Is */}
@@ -132,7 +162,7 @@ export default function HomePage() {
               <ul className="space-y-2 text-sm text-secondary">
                 <li className="flex items-start gap-2">
                   <span className="text-warning">✗</span>
-                  A project management tool (use ClickUp, MS Project)
+                  A project management tool (use Trello, TeamGantt)
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-warning">✗</span>

@@ -15,6 +15,7 @@ import {
   Wrench,
   Settings,
   Shield,
+  UserCog,
 } from "lucide-react";
 
 const adminNavItems = [
@@ -22,6 +23,7 @@ const adminNavItems = [
   { href: "/admin/content", label: "Content", icon: FileText },
   { href: "/admin/phases", label: "Phases", icon: GitBranch },
   { href: "/admin/ceremonies", label: "Ceremonies", icon: Users },
+  { href: "/admin/roles", label: "Role Assignments", icon: UserCog },
   { href: "/admin/tools", label: "Tools", icon: Wrench },
   { href: "/admin/users", label: "Access Control", icon: Shield },
 ];
