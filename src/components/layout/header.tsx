@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, User, LogOut, Settings } from "lucide-react";
@@ -29,7 +30,7 @@ export function Header({ onMenuToggle, isMenuOpen }: HeaderProps) {
           </button>
           
           <Link href="/" className="flex items-center gap-3">
-            <img src="/logo.png" alt="Logo" className="w-8 h-8" />
+            <Image src="/logo.png" alt="Logo" width={32} height={32} />
             <div className="hidden sm:block">
               <h1 className="text-white font-semibold text-lg leading-tight">
                 Project Management Framework

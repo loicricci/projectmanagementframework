@@ -48,6 +48,7 @@ export default function PhasesManagement() {
   useEffect(() => {
     fetchPhases();
     fetchCurrentPhaseSettings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchPhases = async () => {
@@ -234,7 +235,7 @@ export default function PhasesManagement() {
             </div>
           ) : (
             <p className="text-secondary">
-              No phase is currently set. Select a phase below and click "Set as Current Phase" to indicate the project's current stage.
+              No phase is currently set. Select a phase below and click &quot;Set as Current Phase&quot; to indicate the project&apos;s current stage.
             </p>
           )}
         </CardContent>
