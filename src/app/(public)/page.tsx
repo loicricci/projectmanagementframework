@@ -3,6 +3,9 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { PageHeader } from "@/components/layout";
 import { PhaseTimeline } from "@/components/content/phase-timeline";
 import { prisma } from "@/lib/prisma";
+
+// Force dynamic rendering to avoid database connection issues during build
+export const dynamic = 'force-dynamic';
 import {
   FileText,
   GitBranch,

@@ -5,6 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Users, Calendar, Target, FileText, CheckCircle2, Building2, Briefcase, Globe, PenTool, Wallet, Package, HardHat, Scale, Compass, UserCheck, Landmark, Truck, User } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
+// Force dynamic rendering to avoid database connection issues during build
+export const dynamic = 'force-dynamic';
+
 // Role categorization for visual styling
 type RoleCategory = "external" | "stakeholder" | "internal";
 
